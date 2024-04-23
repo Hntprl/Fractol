@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/19 20:43:50 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/22 21:19:25 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <limits.h>
 #include <mlx.h>
 
+#define high 600
+#define width 800
 typedef struct s_var
 {
 	void    *mlx;
@@ -32,6 +34,18 @@ typedef struct s_imf
 	int		size_line;
 	int		endian;
 }   t_imf;
+
+typedef	struct s_c
+{
+	double	img;
+	double	real;
+}	t_c;
+
+typedef struct s_z
+{
+	double	img;
+	double	real;
+}	t_z;
 
 // utils
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
