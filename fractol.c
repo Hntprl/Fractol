@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/23 20:50:37 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/24 09:37:51 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,31 @@ int key_event_handler(int keycode, t_var *var)
 	return (0);
 }
 
+int ft_color_changer(int i)
+{
+	int g;
+	int r;
+	int b;
+
+	r = (i * 6) % 236;
+	g = (i * 12) % 246;
+	b = (i * 19) % 238;
+	return (r << 16 | g << 8 | b);
+}
+
 void ft_draw_pixels(t_imf *img, int color, int y, int x)
 {
 	unsigned int	*pxl;
 
-	pxl = (unsigned int *)img->addr + (x + 800 * y);
-	*pxl = color;
+	pxl = (unsigned int *)img->addr + (y * 800 + x);
+	*pxl = ft_color_changer(color);
 }
 
-void	ft_mandelbrot(t_imf *img, t_c *c)
+void	ft_mandelbrot(t_imf *img, t_c *c, int x, int y)
 {
-	double	i;
-	double	x;
-	double	y;
+	int		i;
+	double	zr;
+	double	zi;
 	t_z	z;
 
 	i = 0;
@@ -42,11 +54,11 @@ void	ft_mandelbrot(t_imf *img, t_c *c)
 	z.img = 0;
 	while (i++ < 100)
 	{
-		x = z.real * z.real;
-		y = z.img * z.img;
-		if (4 < x + y)
-			return(ft_draw_pixels(img, 255, c->img, c->real));
-		z.real = x * y - c->real;
+		zr = z.real * z.real;
+		zi = z.img * z.img;
+		if (4 < zr + zi)
+			return(ft_draw_pixels(img, i, y, x));
+		z.real = zr * zi - c->real;
 		z.img = 2 * z.real * z.img + c->img;
 	}
 }
@@ -54,18 +66,23 @@ void	ft_mandelbrot(t_imf *img, t_c *c)
 void ft_constfinder(t_imf *imf)
 {
 	t_c		c;
+	int		x;
+	int		y;
+
 	
+	x = 0;
+	y = 0;
 	c.real = 0;
 	c.img = 0;
-	while (c.img < 600)
+	while (y ++ < 600)
 	{
-		while (c.real < 800)
+		x = 0;
+		while (x ++ < 800)
 		{
-			ft_mandelbrot(imf, &c);
-			c.real ++;
+			c.real = (x - width / 2) * 4 / width;
+			c.img = (y - high / 2) * 4 / high;
+			ft_mandelbrot(imf, &c, x, y);
 		}
-		c.real = 0;
-		c.img ++;
 	}
 	
 }
