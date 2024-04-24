@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/24 19:46:19 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/24 20:51:33 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_imf
 	int		bites_per_pixel;
 	int		size_line;
 	int		endian;
+	double	zoom;
 }   t_imf;
 
 typedef	struct s_c
