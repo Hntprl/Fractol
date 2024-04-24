@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:05:23 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/17 14:28:29 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/24 19:45:03 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		i ++;
 	}
 	return (NULL);
+}
+
+void Error_handling(void *ptr)
+{
+	if (!ptr)
+		exit(0);
+}
+
+int close_window(t_var *var)
+{
+	mlx_destroy_window(var->mlx, var->win);
+	exit(0);
 }
