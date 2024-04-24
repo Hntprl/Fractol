@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/24 09:37:51 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:02:57 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int ft_color_changer(int i)
 	int r;
 	int b;
 
-	r = (i * 6) % 236;
-	g = (i * 12) % 246;
-	b = (i * 19) % 238;
+	r = (i * 7) % 236;
+	g = (i * 14) % 246;
+	b = (i * 20) % 238;
 	return (r << 16 | g << 8 | b);
 }
 
@@ -38,7 +38,7 @@ void ft_draw_pixels(t_imf *img, int color, int y, int x)
 {
 	unsigned int	*pxl;
 
-	pxl = (unsigned int *)img->addr + (y * 800 + x);
+	pxl = (unsigned int *)img->addr + (y * high + x);
 	*pxl = ft_color_changer(color);
 }
 
@@ -58,7 +58,7 @@ void	ft_mandelbrot(t_imf *img, t_c *c, int x, int y)
 		zi = z.img * z.img;
 		if (4 < zr + zi)
 			return(ft_draw_pixels(img, i, y, x));
-		z.real = zr * zi - c->real;
+		z.real = zr - zi + c->real;
 		z.img = 2 * z.real * z.img + c->img;
 	}
 }
@@ -79,8 +79,8 @@ void ft_constfinder(t_imf *imf)
 		x = 0;
 		while (x ++ < 800)
 		{
-			c.real = (x - width / 2) * 4 / width;
-			c.img = (y - high / 2) * 4 / high;
+			c.real = (x - width / 2.0) * 4.0 / width;
+			c.img = (y - high / 2.0) * 4.0 / high;
 			ft_mandelbrot(imf, &c, x, y);
 		}
 	}

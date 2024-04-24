@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/22 21:19:25 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:00:05 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <limits.h>
 #include <mlx.h>
 
-#define high 600
+#define high 800
 #define width 800
 typedef struct s_var
 {
