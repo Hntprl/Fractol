@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/24 20:51:33 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/25 17:10:56 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 #include <mlx.h>
 
 #define high 900
-#define width 1000
+#define width 900
 typedef struct s_var
 {
 	void    *mlx;
 	void    *win;
 	void    *img;
+	
 }       t_var;
 
 typedef struct s_imf
@@ -34,13 +35,8 @@ typedef struct s_imf
 	int		size_line;
 	int		endian;
 	double	zoom;
+	t_var	var;
 }   t_imf;
-
-typedef	struct s_c
-{
-	double	img;
-	double	real;
-}	t_c;
 
 typedef struct s_z
 {
