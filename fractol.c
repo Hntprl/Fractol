@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/25 17:38:03 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/25 21:37:36 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ unsigned int	ft_color_changer(int i)
 	unsigned int	r;
 	unsigned int	b;
 
-	r = (i * 5) % 236;
-	g = (i * 18) % 246;
-	b = (i * 23) % 238;
+	r = (i * 5);
+	g = (i * 18);
+	b = (i * 23);
 	return (r << 16 | g << 8 | b);
 }
 
@@ -42,7 +42,7 @@ void	ft_draw_pixels(t_imf *img, int color, int y, int x)
 	*pxl = ft_color_changer(color);
 }
 
-void	ft_mandelbrot(t_imf *img, t_z *c, int x, int y)
+int	ft_mandelbrot(t_imf *img, t_z *c, int x, int y)
 {
 	int		i;
 	double	zr;
@@ -57,10 +57,11 @@ void	ft_mandelbrot(t_imf *img, t_z *c, int x, int y)
 		zr = z.real * z.real;
 		zi = z.img * z.img;
 		if (4 < zr + zi)
-			return(ft_draw_pixels(img, i, y, x));
+			return(i);
 		z.img = 2 * z.real * z.img + c->img;
 		z.real = zr - zi + c->real;
 	}
+	return (0);
 }
 
 void	ft_constfinder(t_imf *imf, t_var *var)
@@ -80,7 +81,7 @@ void	ft_constfinder(t_imf *imf, t_var *var)
 		{
 			c.real = (x - width / 2.0) * 4.0 / width * imf->zoom;
 			c.img = (y - high / 2.0) * 4.0 / high * imf->zoom;
-			ft_mandelbrot(imf, &c, x, y);
+			ft_draw_pixels(imf, ft_mandelbrot(imf, &c, x, y), y, x);
 		}
 	}
 	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
@@ -93,7 +94,7 @@ int	zoom_handler(int button, int x, int y, t_imf *imf)
 		imf->zoom *= 1.3;
 	else
 		return (0);
-	ft_constfinder(imf, &imf->var);
+	ft_constfinder(imf, imf->var);
 	return (0);
 }
 
@@ -102,6 +103,7 @@ void ft_set_window()
 	t_var   var;
 	t_imf	imf;
 
+	imf.var = &var;
 	imf.zoom = 1.0;
 	var.mlx = mlx_init();
 	var.win = mlx_new_window(var.mlx, width, high, "Mandelbrot");
@@ -120,7 +122,8 @@ int main (int ac, char **av)
 	if (ac == 2)
 	{
 		if (!ft_strnstr(av[1], "Mandelbrot", 10) || ft_strlen(av[1]) > 10)
-			(write(1, "Mandelbrot\n", 11), exit(1));
+			if (!ft_strnstr(av[1], "Julia", 10) || ft_strlen(av[1]) > 5)
+				(write(1, "- Fractals:\n--> [Mandelbrot].\n--> [Julia].\n", 43), exit(1));
 		ft_set_window();
 	}
 }

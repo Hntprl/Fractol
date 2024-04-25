@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/25 17:10:56 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/25 20:10:53 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_imf
 	int		size_line;
 	int		endian;
 	double	zoom;
-	t_var	var;
+	t_var	*var;
 }   t_imf;
 
 typedef struct s_z
