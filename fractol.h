@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/25 20:10:53 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/26 14:19:10 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_var
 	void    *mlx;
 	void    *win;
 	void    *img;
+	char	**av;
 	
 }       t_var;
 

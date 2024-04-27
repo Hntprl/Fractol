@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/25 21:37:36 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/04/27 13:35:01 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,34 @@ unsigned int	ft_color_changer(int i)
 	unsigned int	r;
 	unsigned int	b;
 
-	r = (i * 5);
-	g = (i * 18);
-	b = (i * 23);
+	r = (i * 9);
+	g = (i * 19);
+	b = (i * 29);
 	return (r << 16 | g << 8 | b);
+}
+
+int	ft_check_char(char *num)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (num[0] == '\0')
+			return (0);
+	while (num[i])
+	{
+		if ((num[i] > '0' || num[i] < '9')
+			&& (num[i + 1] == '+' || (num[i + 1] == '-')))
+			return (0);
+		if (num[i] == '-' || num[i] == '+' || num[i] == '.')
+			i ++;
+		if (num[i] < '0' || num[i] > '9')
+			return (0);
+		
+		i ++;
+	}
+	return (1);
 }
 
 void	ft_draw_pixels(t_imf *img, int color, int y, int x)
@@ -42,7 +66,7 @@ void	ft_draw_pixels(t_imf *img, int color, int y, int x)
 	*pxl = ft_color_changer(color);
 }
 
-int	ft_mandelbrot(t_imf *img, t_z *c, int x, int y)
+int	ft_mandelbrot(t_imf *img, t_z *c, int x, int y, t_var *var)
 {
 	int		i;
 	double	zr;
@@ -81,7 +105,7 @@ void	ft_constfinder(t_imf *imf, t_var *var)
 		{
 			c.real = (x - width / 2.0) * 4.0 / width * imf->zoom;
 			c.img = (y - high / 2.0) * 4.0 / high * imf->zoom;
-			ft_draw_pixels(imf, ft_mandelbrot(imf, &c, x, y), y, x);
+			ft_draw_pixels(imf, ft_mandelbrot(imf, &c, x, y, var), y, x);
 		}
 	}
 	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
@@ -98,32 +122,41 @@ int	zoom_handler(int button, int x, int y, t_imf *imf)
 	return (0);
 }
 
-void ft_set_window()
+void ft_set_window(t_var *var)
 {
-	t_var   var;
 	t_imf	imf;
 
-	imf.var = &var;
+	imf.var = var;
 	imf.zoom = 1.0;
-	var.mlx = mlx_init();
-	var.win = mlx_new_window(var.mlx, width, high, "Mandelbrot");
-	var.img = mlx_new_image(var.mlx, width, high);
-	imf.addr = mlx_get_data_addr(var.img, &imf.bites_per_pixel, &imf.size_line, &imf.endian);
-	ft_constfinder(&imf, &var);
-	mlx_mouse_hook(var.win, zoom_handler, &imf);
-	mlx_hook(var.win, 17, 0, close_window, &var);
-	mlx_key_hook(var.win, key_event_handler, &var);
-	mlx_put_image_to_window(var.mlx, var.win, var.img, 0, 0);
-	mlx_loop(var.mlx);
+	var->mlx = mlx_init();
+	var->win = mlx_new_window(var->mlx, width, high, "Mandelbrot");
+	var->img = mlx_new_image(var->mlx, width, high);
+	imf.addr = mlx_get_data_addr(var->img, &imf.bites_per_pixel, &imf.size_line, &imf.endian);
+	ft_constfinder(&imf, var);
+	mlx_mouse_hook(var->win, zoom_handler, &imf);
+	mlx_hook(var->win, 17, 0, close_window, var);
+	mlx_key_hook(var->win, key_event_handler, var);
+	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
+	mlx_loop(var->mlx);
 }
 
 int main (int ac, char **av)
 {
+	int i;
+	t_var	var;
+
+	var.av = av;
+	i = 0;
 	if (ac == 2)
 	{
-		if (!ft_strnstr(av[1], "Mandelbrot", 10) || ft_strlen(av[1]) > 10)
-			if (!ft_strnstr(av[1], "Julia", 10) || ft_strlen(av[1]) > 5)
-				(write(1, "- Fractals:\n--> [Mandelbrot].\n--> [Julia].\n", 43), exit(1));
-		ft_set_window();
+		if (ft_strnstr(av[1], "Mandelbrot", 10) && ft_strlen(av[1]) == 10)
+			ft_set_window(&var);
 	}
+	if (ac == 4)
+	{
+		if (ft_strnstr(av[1], "Julia", 10) && ft_strlen(av[1]) == 5)
+			if (ft_check_char(av[2]) && ft_check_char(av[3]))
+				ft_set_window(&var);
+	}
+	(write(1, "- Fractals:\n--> [Mandelbrot].\n--> [Julia].\n", 43), exit(1));
 }
