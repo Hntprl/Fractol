@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   fractol_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:05:23 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/24 19:45:03 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/01 23:07:13 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,69 @@ size_t	ft_strlen(const char *s)
 		i ++;
 	}
 	return (i);
+}
+
+double ft_atof_2(char *str, int i, double s)
+{
+	int	j;
+	double dbl;
+	double	a;
+	
+	dbl = 1.0;
+	a = 0.0;
+	while ((str[i] <= '9' && str[i] >= '0') || str[i] == '.')
+	{
+		if (str[i] == '.')
+		{
+			j = ++ i;
+			while (str[j ++])
+				dbl *= 10.0;
+		}
+		a = (str[i] - '0') + (a * 10.0);
+		i ++;
+	}
+	return (a / dbl * s);
+}
+
+double	ft_atof(char *str)
+{
+	int		i;
+	double	s;
+	double	a;
+
+	s = 1.0;
+	i = 0;
+	a = 0.0;
+	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
+		i ++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			s *= -1.0;
+		i ++;
+	}
+	a = ft_atof_2(str, i, s);
+	return (a);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	c1;
+	unsigned char	c2;
+
+	i = 0;
+	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
+	{
+		c1 = s1[i];
+		c2 = s2[i];
+		if (c1 != c2)
+		{
+			return (c1 - c2);
+		}
+		i++;
+	}
+	return (0);
 }
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
@@ -48,16 +111,4 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		i ++;
 	}
 	return (NULL);
-}
-
-void Error_handling(void *ptr)
-{
-	if (!ptr)
-		exit(0);
-}
-
-int close_window(t_var *var)
-{
-	mlx_destroy_window(var->mlx, var->win);
-	exit(0);
 }
