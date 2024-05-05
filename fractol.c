@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/04 19:52:19 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/05 20:32:53 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_julia(t_z *c, t_var *var)
 	i = 0;
 	julia.real = ft_atof(var->av[2]);
 	julia.img = ft_atof(var->av[3]);
-	while (i++ < 500)
+	while (i++ < 100)
 	{
 		zr = c->real * c->real;
 		zi = c->img * c->img;
@@ -59,24 +59,24 @@ int	ft_mandelbrot(t_z *c)
 void	ft_constfinder(t_imf *imf, t_var *var)
 {
 	t_z		c;
-	t_cords	cords;
+	// t_cords	cords;
 
-	cords.x = -1;
-	cords.y = -1;
+	var->cords->x = -1;
+	var->cords->y = -1;
 	c.real = 0;
 	c.img = 0;
-	var->cords = &cords;
-	while (++cords.y < HIGH)
+	// var->cords = &cords;
+	while (++var->cords->y < HIGH)
 	{
-		cords.x = 0;
-		while (++cords.x < WIDTH)
+		var->cords->x = 0;
+		while (++var->cords->x < WIDTH)
 		{
-			c.real = (cords.x - WIDTH / 2.0) * 4.0 / WIDTH * imf->zoom;
-			c.img = (cords.y - HIGH / 2.0) * 4.0 / HIGH * imf->zoom;
+			c.real = (var->cords->x - WIDTH / 2.0) * 4.0 / WIDTH * imf->zoom;
+			c.img = (var->cords->y - HIGH / 2.0) * 4.0 / HIGH * imf->zoom;
 			if (!ft_strncmp(var->av[1], "Julia", 6))
-				ft_draw_pixels(imf, ft_julia(&c, var), cords.y, cords.x);
+				ft_draw_pixels(imf, ft_julia(&c, var), var->cords->y, var->cords->x);
 			else
-				ft_draw_pixels(imf, ft_mandelbrot(&c), cords.y, cords.x);
+				ft_draw_pixels(imf, ft_mandelbrot(&c), var->cords->y, var->cords->x);
 		}
 	}
 	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
@@ -90,7 +90,7 @@ void	ft_set_window(t_var *var)
 	imf.zoom = 1.0;
 	var->mlx = mlx_init();
 	error_handling(var->mlx);
-	var->win = mlx_new_window(var->mlx, WIDTH, HIGH, "Mandelbrot");
+	var->win = mlx_new_window(var->mlx, WIDTH, HIGH, "Fractal");
 	error_handling(var->win);
 	var->img = mlx_new_image(var->mlx, WIDTH, HIGH);
 	error_handling(var->img);
@@ -107,7 +107,9 @@ void	ft_set_window(t_var *var)
 int	main(int ac, char **av)
 {
 	t_var	var;
+	t_cords	cords;
 
+	var.cords = &cords;
 	var.av = av;
 	if (ac == 2)
 	{

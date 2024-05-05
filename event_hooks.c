@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:33:57 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/01 23:09:56 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/05 20:37:55 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,28 @@ int	zoom_handler(int button, int x, int y, t_imf *imf)
 
 int	key_event_handler(int keycode, t_var *var)
 {
+	// printf("%d\n", keycode);
+	// //Up
+	if (keycode == 65362)
+	{
+		printf("UP\n");
+		var->cords->x += 2.0;
+	}
+	// //Downd
+	// if (keycode == 65364)
+	// {
+		
+	// }
+	// //Left
+	// if (keycode == 65363)
+	// {
+		
+	// }
+	// //Right
+	// if (keycode == 65361)
+	// {
+		
+	// }
 	if (keycode == 65307)
 	{
 		mlx_destroy_window(var->mlx, var->win);
