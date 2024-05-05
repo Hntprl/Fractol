@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/04 17:03:29 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/05 21:40:56 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # define HIGH 900
 # define WIDTH 900
 
-typedef struct s_cords
+typedef struct s_z
 {
-	double	y;
-	double	x;
-}	t_cords;
+	double	img;
+	double	real;
+}	t_z;
 
 typedef struct s_var
 {
@@ -33,7 +33,8 @@ typedef struct s_var
 	void	*win;
 	void	*img;
 	char	**av;
-	t_cords	*cords;
+	double	u_d;
+	double	l_r;
 }			t_var;
 
 typedef struct s_imf
@@ -45,12 +46,6 @@ typedef struct s_imf
 	double	zoom;
 	t_var	*var;
 }			t_imf;
-
-typedef struct s_z
-{
-	double	img;
-	double	real;
-}	t_z;
 
 char			*ft_strnstr(const char *haystack,
 					const char *needle, size_t len);

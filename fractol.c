@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/05 20:32:53 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/05 21:43:41 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,24 @@ int	ft_mandelbrot(t_z *c)
 void	ft_constfinder(t_imf *imf, t_var *var)
 {
 	t_z		c;
-	// t_cords	cords;
+	double	y;
+	double	x;
 
-	var->cords->x = -1;
-	var->cords->y = -1;
+	x = -1;
+	y = -1;
 	c.real = 0;
 	c.img = 0;
-	// var->cords = &cords;
-	while (++var->cords->y < HIGH)
+	while (++y < HIGH)
 	{
-		var->cords->x = 0;
-		while (++var->cords->x < WIDTH)
+		x = 0;
+		while (++x < WIDTH)
 		{
-			c.real = (var->cords->x - WIDTH / 2.0) * 4.0 / WIDTH * imf->zoom;
-			c.img = (var->cords->y - HIGH / 2.0) * 4.0 / HIGH * imf->zoom;
+			c.real = (x - WIDTH / 2.0) * 4.0 / WIDTH * imf->zoom + var->u_d;
+			c.img = (y - HIGH / 2.0) * 4.0 / HIGH * imf->zoom;
 			if (!ft_strncmp(var->av[1], "Julia", 6))
-				ft_draw_pixels(imf, ft_julia(&c, var), var->cords->y, var->cords->x);
+				ft_draw_pixels(imf, ft_julia(&c, var), y, x);
 			else
-				ft_draw_pixels(imf, ft_mandelbrot(&c), var->cords->y, var->cords->x);
+				ft_draw_pixels(imf, ft_mandelbrot(&c), y, x);
 		}
 	}
 	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
@@ -107,9 +107,9 @@ void	ft_set_window(t_var *var)
 int	main(int ac, char **av)
 {
 	t_var	var;
-	t_cords	cords;
 
-	var.cords = &cords;
+	var.u_d = 0;
+	var.l_r = 0;
 	var.av = av;
 	if (ac == 2)
 	{
