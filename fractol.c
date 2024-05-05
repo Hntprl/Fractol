@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/01 22:47:57 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/04 19:52:19 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_julia(t_z *c, t_var *var)
 	i = 0;
 	julia.real = ft_atof(var->av[2]);
 	julia.img = ft_atof(var->av[3]);
-	while (i++ < 100)
+	while (i++ < 500)
 	{
 		zr = c->real * c->real;
 		zi = c->img * c->img;
@@ -89,25 +89,26 @@ void	ft_set_window(t_var *var)
 	imf.var = var;
 	imf.zoom = 1.0;
 	var->mlx = mlx_init();
+	error_handling(var->mlx);
 	var->win = mlx_new_window(var->mlx, WIDTH, HIGH, "Mandelbrot");
+	error_handling(var->win);
 	var->img = mlx_new_image(var->mlx, WIDTH, HIGH);
+	error_handling(var->img);
 	imf.addr = mlx_get_data_addr(var->img, &imf.bites_per_pixel,
 			&imf.size_line, &imf.endian);
+	error_handling(&imf.addr);
 	ft_constfinder(&imf, var);
 	mlx_mouse_hook(var->win, zoom_handler, &imf);
 	mlx_hook(var->win, 17, 0, close_window, var);
 	mlx_key_hook(var->win, key_event_handler, var);
-	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
 	mlx_loop(var->mlx);
 }
 
 int	main(int ac, char **av)
 {
-	int		i;
 	t_var	var;
 
 	var.av = av;
-	i = 0;
 	if (ac == 2)
 	{
 		if (!ft_strncmp(av[1], "Mandelbrot", 11))

@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:39:37 by amarouf           #+#    #+#             */
-/*   Updated: 2024/04/29 19:07:59 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/04 17:44:30 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,17 @@ unsigned int	ft_color_changer(int i)
 	unsigned int	r;
 	unsigned int	b;
 
-	r = (i * 9) % 236;
-	g = (i * 19) % 236;
-	b = (i * 29) % 234;
+	r = (i * 10 % 2);
+	g = (i * 8 / 3);
+	b = (i * 6 / 2);
 	return (r << 16 | g << 8 | b);
 }
 
 int	ft_check_char(char *num)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	if (num[0] == '\0')
 		return (0);
 	while (num[i])

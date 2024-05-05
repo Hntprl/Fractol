@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:33:57 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/01 22:52:49 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/01 23:09:56 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	key_event_handler(int keycode, t_var *var)
 void	error_handling(void *ptr)
 {
 	if (!ptr)
-		exit(0);
+		exit(1);
 }
 
 int	close_window(t_var *var)

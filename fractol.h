@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/01 23:07:26 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/04 17:03:29 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ int				key_event_handler(int keycode, t_var *var);
 void			ft_constfinder(t_imf *imf, t_var *var);
 void			ft_draw_pixels(t_imf *img, int color, int y, int x);
 unsigned int	ft_color_changer(int i);
+void			error_handling(void *ptr);
 #endif
