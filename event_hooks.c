@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:33:57 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/05 21:51:51 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:51:51 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,24 @@ int	zoom_handler(int button, int x, int y, t_imf *imf)
 	return (0);
 }
 
-int	key_event_handler(int keycode, t_var *var)
+int	key_event_handler(int keycode, t_imf *imf)
 {
-	// printf("%d\n", keycode);
-	// //Up
 	if (keycode == 65362)
+		imf->var->u_d -= 0.10;
+	else if (keycode == 65364)
+		imf->var->u_d += 0.1;
+	else if (keycode == 65363)
+		imf->var->l_r += 0.1;
+	else if (keycode == 65361)
+		imf->var->l_r -= 0.1;
+	else if (keycode == 65307)
 	{
-		printf("UP\n");
-		var->u_d += 0.1;
-	}
-	// //Downd
-	// if (keycode == 65364)
-	// {
-		
-	// }
-	// //Left
-	// if (keycode == 65363)
-	// {
-		
-	// }
-	// //Right
-	// if (keycode == 65361)
-	// {
-		
-	// }
-	if (keycode == 65307)
-	{
-		mlx_destroy_window(var->mlx, var->win);
+		mlx_destroy_window(imf->var->mlx, imf->var->win);
 		exit(0);
 	}
+	else
+		return (0);
+	ft_constfinder(imf, imf->var);
 	return (0);
 }
 
@@ -68,4 +57,10 @@ int	close_window(t_var *var)
 {
 	mlx_destroy_window(var->mlx, var->win);
 	exit(0);
+}
+
+void	ft_abs(double *abs)
+{
+	if (*abs < 0.0)
+		*abs *= -1.0;
 }

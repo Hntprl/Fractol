@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/05 21:40:56 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:51:44 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ size_t			ft_strlen(const char *s);
 int				close_window(t_var *var);
 int				zoom_handler(int button, int x, int y, t_imf *imf);
 int				ft_check_char(char *num);
-int				key_event_handler(int keycode, t_var *var);
+int				key_event_handler(int keycode, t_imf *imf);
 void			ft_constfinder(t_imf *imf, t_var *var);
 void			ft_draw_pixels(t_imf *img, int color, int y, int x);
 unsigned int	ft_color_changer(int i);
 void			error_handling(void *ptr);
+void			ft_abs(double *abs);
 #endif
