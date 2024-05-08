@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/07 20:51:36 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/08 21:03:39 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_julia(t_z *c, t_var *var)
 	return (0);
 }
 
-int	ft_mandelbrot(t_z *c, char **av)
+int	ft_mandelbrot_bship(t_z *c, char **av)
 {
 	int		i;
 	double	zr;
@@ -50,7 +50,7 @@ int	ft_mandelbrot(t_z *c, char **av)
 		zi = z.img * z.img;
 		if (4 < zr + zi)
 			return (i);
-		if (!ft_strncmp(av[1], "Ship", 5))
+		if (!ft_strncmp(av[1], "Bship", 6))
 			(ft_abs(&z.img), ft_abs(&z.real));
 		z.img = 2 * z.real * z.img + c->img;
 		z.real = zr - zi + c->real;
@@ -78,7 +78,7 @@ void	ft_constfinder(t_imf *imf, t_var *var)
 			if (!ft_strncmp(var->av[1], "Julia", 6))
 				ft_draw_pixels(imf, ft_julia(&c, var), y, x);
 			else
-				ft_draw_pixels(imf, ft_mandelbrot(&c, var->av), y, x);
+				ft_draw_pixels(imf, ft_mandelbrot_bship(&c, var->av), y, x);
 		}
 	}
 	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
@@ -116,7 +116,7 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		if (!ft_strncmp(av[1], "Mandelbrot", 11)
-			|| !ft_strncmp(av[1], "Ship", 5))
+			|| !ft_strncmp(av[1], "Bship", 6))
 			ft_set_window(&var);
 	}
 	if (ac == 4)
@@ -125,6 +125,6 @@ int	main(int ac, char **av)
 			if (ft_check_char(av[2]) && ft_check_char(av[3]))
 				ft_set_window(&var);
 	}
-	(write(1, "-Fractals:\n-->[Mandelbrot].\n-->[Julia]<rl><img>.\n-->[Ship].\n"
-			, 65), exit(1));
+	(write(1, "-Fractals:\n-->[Mandelbrot].\n-->[Julia]<rl><img>.\n-->[Bship].\n"
+			, 62), exit(1));
 }

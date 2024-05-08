@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:33:57 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/07 20:51:51 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/08 20:56:30 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ int	key_event_handler(int keycode, t_imf *imf)
 	else if (keycode == 65361)
 		imf->var->l_r -= 0.1;
 	else if (keycode == 65307)
-	{
-		mlx_destroy_window(imf->var->mlx, imf->var->win);
-		exit(0);
-	}
+		ft_destroy(imf->var);
 	else
 		return (0);
 	ft_constfinder(imf, imf->var);
@@ -55,12 +52,15 @@ void	error_handling(void *ptr)
 
 int	close_window(t_var *var)
 {
-	mlx_destroy_window(var->mlx, var->win);
-	exit(0);
+	ft_destroy(var);
+	return (0);
 }
 
-void	ft_abs(double *abs)
+void	ft_destroy(t_var *var)
 {
-	if (*abs < 0.0)
-		*abs *= -1.0;
+	mlx_destroy_image(var->mlx, var->img);
+	mlx_destroy_window(var->mlx, var->win);
+	mlx_destroy_display(var->mlx);
+	free(var->mlx);
+	exit(0);
 }

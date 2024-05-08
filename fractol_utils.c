@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:05:23 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/06 13:36:43 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/08 15:25:00 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ double	ft_atof_2(char *str, int i, double s)
 			{
 				dbl *= 10.0;
 				if (str[j] == '.')
-					(write(1, "- Fractals:\n--> [Mandelbrot].\n--> [Julia].\n",
-							43), exit(1));
+					exit(1);
 			}
 		}
 		a = (str[i] - '0') + (a * 10.0);

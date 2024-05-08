@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:39:37 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/07 16:48:07 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/08 20:55:44 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ void	ft_draw_pixels(t_imf *img, int color, int y, int x)
 
 	pxl = (unsigned int *)img->addr + (y * WIDTH + x);
 	*pxl = ft_color_changer(color);
+}
+
+void	ft_abs(double *abs)
+{
+	if (*abs < 0.0)
+		*abs *= -1.0;
 }

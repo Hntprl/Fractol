@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:47 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/07 20:51:44 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/08 20:17:51 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ void			ft_draw_pixels(t_imf *img, int color, int y, int x);
 unsigned int	ft_color_changer(int i);
 void			error_handling(void *ptr);
 void			ft_abs(double *abs);
+void			ft_destroy(t_var *var);
 #endif
