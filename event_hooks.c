@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:33:57 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/08 20:56:30 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/08 21:16:56 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	zoom_handler(int button, int x, int y, t_imf *imf)
 {
-	(void) y;
-	(void) x;
+	// (void) y;
+	// (void) x;
 	if (button == 4)
 		imf->zoom *= 0.93;
 	else if (button == 5)
 		imf->zoom *= 1.3;
 	else
 		return (0);
-	ft_constfinder(imf, imf->var);
+	ft_constfinder(imf, imf->var, x , y);
 	return (0);
 }
 
@@ -40,7 +40,7 @@ int	key_event_handler(int keycode, t_imf *imf)
 		ft_destroy(imf->var);
 	else
 		return (0);
-	ft_constfinder(imf, imf->var);
+	ft_constfinder(imf, imf->var, 1, 1);
 	return (0);
 }
 
