@@ -6,7 +6,7 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:18:13 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/08 21:21:26 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/19 13:45:54 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	ft_set_window(t_var *var)
 {
 	t_imf	imf;
 
+	imf.adj = 0.1;
 	imf.var = var;
 	imf.zoom = 1.0;
 	var->mlx = mlx_init();
@@ -100,9 +101,9 @@ void	ft_set_window(t_var *var)
 			&imf.size_line, &imf.endian);
 	error_handling(&imf.addr);
 	ft_constfinder(&imf, var);
-	mlx_mouse_hook(var->win, zoom_handler, &imf);
+	mlx_mouse_hook(var->win, ft_mouse_hook, &imf);
 	mlx_hook(var->win, 17, 0, close_window, var);
-	mlx_key_hook(var->win, key_event_handler, &imf);
+	mlx_key_hook(var->win, key_event_hook, &imf);
 	mlx_loop(var->mlx);
 }
 
@@ -125,6 +126,7 @@ int	main(int ac, char **av)
 			if (ft_check_char(av[2]) && ft_check_char(av[3]))
 				ft_set_window(&var);
 	}
-	(write(1, "-Fractals:\n-->[Mandelbrot].\n-->[Julia]<rl><img>.\n-->[Bship].\n"
-			, 62), exit(1));
+	(write(1, "-Fractals:\n->[Mandelbrot].\n->[Julia]<rl><img>.\n->[Bship].\n"
+			, 59), exit(1));
+	return (0);
 }

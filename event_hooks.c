@@ -6,41 +6,44 @@
 /*   By: amarouf <amarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:33:57 by amarouf           #+#    #+#             */
-/*   Updated: 2024/05/08 21:16:56 by amarouf          ###   ########.fr       */
+/*   Updated: 2024/05/19 13:38:29 by amarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	zoom_handler(int button, int x, int y, t_imf *imf)
+int	ft_mouse_hook(int button, int x, int y, t_imf *imf)
 {
-	// (void) y;
-	// (void) x;
+	(void) y;
+	(void) x;
 	if (button == 4)
+	{
 		imf->zoom *= 0.93;
+		imf->adj = 0.1 * imf->zoom;
+	}
 	else if (button == 5)
 		imf->zoom *= 1.3;
 	else
 		return (0);
-	ft_constfinder(imf, imf->var, x , y);
+	ft_constfinder(imf, imf->var);
 	return (0);
 }
 
-int	key_event_handler(int keycode, t_imf *imf)
+int	key_event_hook(int keycode, t_imf *imf)
 {
 	if (keycode == 65362)
-		imf->var->u_d -= 0.10;
+		imf->var->u_d -= imf->adj;
 	else if (keycode == 65364)
-		imf->var->u_d += 0.1;
+		imf->var->u_d += imf->adj;
 	else if (keycode == 65363)
-		imf->var->l_r += 0.1;
+		imf->var->l_r += imf->adj;
 	else if (keycode == 65361)
-		imf->var->l_r -= 0.1;
+		imf->var->l_r -= imf->adj;
 	else if (keycode == 65307)
 		ft_destroy(imf->var);
 	else
 		return (0);
-	ft_constfinder(imf, imf->var, 1, 1);
+	ft_constfinder(imf, imf->var);
 	return (0);
 }
 
